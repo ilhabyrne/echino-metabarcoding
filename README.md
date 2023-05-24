@@ -34,10 +34,6 @@ tab2[tab2 < 10] <- 0
 write.csv(tab2, ".csv")
 ```
 
-📝 **Longshore negative control samples** have the following max. number of reads (for a given otu): 60 (A), 1085 (B), and 759 (C). Total number of reads in negative controls are as follows: 612 (A), 3240 (B), and 2580 (C). **Positive controls** have 15818 (echino), 7486 (mixed), 8429 (non-echino). Total number of reads in positive controls are: 40526 (A), 18923 (B), and 18297 (C).
-
-</aside>
-
 #### Format for phyloseq using excel
 
 **OTU matrix:**
@@ -114,14 +110,14 @@ fig1
 
 #### Maximum contamination filtering
 
-To perform maxCont filtering, you need to format the data frame in excel:
+To perform maxCont filtering, you need to format the data frame in excel first (or in R):
 
-- [ ]  make sure you are working on the data frame that has already had singletons remove
+- [ ]  make sure you are working on the data frame that has already had singletons removed
 - [ ]  calculate maximum NC reads ← NCmax column
 - [ ]  remove NC columns
 
 ```r
-## Example code using a random data frame
+# Example code using a random data frame:
 
 # create a sample data frame
 df <- data.frame(species = c("A", "B", "C"), sample1 = c(10, 15, 5), sample2 = c(8, 4, 12), sample3 = c(20, 2, 7), min_values = c(7, 5, 10))
@@ -150,6 +146,11 @@ df_filtered
 #### Sample-specific filtering
 
 **Longshore dataset: sample % threshold** 
+For the longshore dataset, PCR replicates were not uniquely tagged but rather pooled. As such, we cannot merge/filter based on variability among replicates. Here, I used a sample percentage threshold as per Drake et al. (2022). 
+
+```r
+
+```
 
 **Moore dataset: PCR replicate merging** 
 
@@ -191,7 +192,7 @@ tab1c <- tab1 %>% mutate_if(is.numeric, ~1 * (. > 0))
 
 ## Statistical analyses
 
-### glmm model
+### glm(m) model
 
 #### Format files
 
@@ -211,3 +212,8 @@ otutab:
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/316fa5af-2373-4bb8-870c-ccb97404bfa8/Untitled.png)
 
 metadata:
+
+## References
+
+### Acknowledgements 
+A MASSIVE thank you to Dr Iva Popovic, Dr Dean Brookes and Professor Cynthia Riginos who were instrumental in this study and without whom none of this work would have beeen achievable. I also want to thank Dr Sven Uthicke and his entire team at AIMS for all their assistance in collecting samples, sample processing etc. Dr Karin Zwiep, Dr Simone Blomberg and the Queensland Cyber Infrastructure Foundation (QCIF) also provided useful comments and advice. 
