@@ -1,6 +1,6 @@
 # echino_metabarcoding
 
-Welcome to the GitHub repository associated with my Honours project conducted at the University of Queensland as part of the Bachelor of Science (Honours) program (August 2020 - May 2021). In this repository you can find the raw data associated with this metabarcoding project and the associated scripts and proccessed files used to produce the final results (which I hope will be published in an open access journal ONE DAY🤞). 
+Welcome to the GitHub repository associated with my Honours project conducted at the University of Queensland as part of the Bachelor of Science (Honours) program (August 2020 - May 2021). In this repository, you can find the raw data associated with this metabarcoding project and the associated scripts and processed files used to produce the final results.
 
 ## Project overview
 The main aim of this project was to use metabarcoding as a tool to identify the echinoderm larvae present in plankton samples (generously donated by the Australian Institute of Marine Science) and speak to the temporal and spatial variability in their occurrence.
@@ -8,7 +8,7 @@ The main aim of this project was to use metabarcoding as a tool to identify the 
 ## Bioinformatics pipeline
 
 ## Post-bioinformatics wrangling
-Below you will find my ramblings on how I tackled the post-bioinfromatics proccessing of this dataset. This is just an overview of what I did - refer to my scripts to see exactly what I did. 
+Below you will find my ramblings on how I tackled the post-bioinfromatics processing of this dataset. This is just an overview of what I did - refer to my scripts to see exactly what I did. 
 
 Main steps
 - [x]  Merge MIDORI sintax & echino NCBI results
