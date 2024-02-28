@@ -1,6 +1,6 @@
 # Model 1 - unformatted matrix
 Call:
-  rda(formula = pa ~ year + site + temperature + salinity + chl,      data = env1, scale = TRUE) 
+  rda(formula = pa ~ year + site + temperature + salinity + chl, data = env1, scale = TRUE) 
 
 Partitioning of correlations:
   Inertia Proportion
@@ -9,93 +9,40 @@ Constrained     1.769     0.2527
 Unconstrained   5.231     0.7473
 
 ### Eigenvalues 
-##### Unconstrained eigenvalyues
-Importance of components:
-  RDA1    RDA2    RDA3    RDA4     RDA5    PC1
-Eigenvalue            0.9159 0.56032 0.16428 0.10395 0.024609 2.0399
-Proportion Explained  0.1308 0.08005 0.02347 0.01485 0.003516 0.2914
-Cumulative Proportion 0.1308 0.21089 0.23436 0.24921 0.252729 0.5441
-PC2    PC3    PC4     PC5     PC6      PC7
-Eigenvalue            1.0273 0.8727 0.5313 0.40869 0.30846 0.042564
-Proportion Explained  0.1468 0.1247 0.0759 0.05838 0.04407 0.006081
-Cumulative Proportion 0.6909 0.8156 0.8915 0.94985 0.99392 1.000000
+#### Unconstrained eigenvalues
+**Importance of components for RDAs 1 & 2:**
 
-##### Accumulated constrained eigenvalues
-Importance of components:
-  RDA1   RDA2    RDA3    RDA4    RDA5
-Eigenvalue            0.9159 0.5603 0.16428 0.10395 0.02461
-Proportion Explained  0.5177 0.3167 0.09286 0.05876 0.01391
-Cumulative Proportion 0.5177 0.8345 0.92733 0.98609 1.00000
+Eigenvalue            0.9159 0.56032
+Proportion Explained  0.1308 0.08005
+Cumulative Proportion 0.1308 0.21089
+
+#### Accumulated constrained eigenvalues
+**Importance of components for RDAs 1 & 2:**
+
+Eigenvalue            0.9159 0.5603
+Proportion Explained  0.5177 0.3167
+Cumulative Proportion 0.5177 0.8345
 
 ## Scaling 2 for species and site scores
 * Species are scaled proportional to eigenvalues
 * Sites are unscaled: weighted dispersion equal on all dimensions
 * General scaling constant of scores:  3.395963 
 
-##### Species scores
-RDA1     RDA2     RDA3     RDA4     RDA5      PC1
-Acanthaster -0.1370 -0.40918  0.08107 -0.11407  0.04222 -1.11136
-Echinaster   0.6700  0.55667  0.06552 -0.19970  0.03737 -0.17601
-Holothuria   0.4701 -0.41566  0.07065  0.10494 -0.03207  0.01794
-Linckia     -0.2092 -0.22699 -0.34132 -0.18019  0.07745 -1.07470
-Ophiactis    0.1097  0.18005 -0.33385  0.03472 -0.12091  0.53282
-Ophionereis -0.7457  0.43230  0.03752  0.11414  0.03904 -0.42877
-Ophiura     -0.4566 -0.04717  0.15946 -0.24629 -0.11914  0.68673
+#### Species scores
+Acanthaster -0.1370 -0.40918
+Echinaster   0.6700  0.55667
+Holothuria   0.4701 -0.41566
+Linckia     -0.2092 -0.22699
+Ophiactis    0.1097  0.18005
+Ophionereis -0.7457  0.43230
+Ophiura     -0.4566 -0.04717
 
-##### Site scores (weighted sums of species scores)
-RDA1     RDA2    RDA3    RDA4     RDA5     PC1
-Undi_2019 -0.1725  0.01209  1.3774  0.6231   0.1929  0.2332
-Oste_2019 -0.4441 -0.46965 -1.0933 -1.4381   3.9357 -0.4020
-Liza_2019 -0.4441 -0.46965 -1.0933 -1.4381   3.9357 -0.4087
-Gree_2019  0.6233  0.03570  1.2768  3.1847  -3.4851  0.8718
-Sudb_2019  0.1662 -1.35181 -0.5819 -0.2376   2.3859 -0.3974
-Gibs_2019 -0.4441 -0.46965 -1.0933 -1.4381   3.9357 -0.4034
-Hall_2019  0.1662 -1.35181 -0.5819 -0.2376   2.3859 -0.3879
-Eddy_2019 -0.4441 -0.46965 -1.0933 -1.4381   3.9357 -0.4305
-Otte_2019 -1.3402  0.68936  3.4003 -4.4470 -15.0771  1.7709
-Bram_2019 -2.6542  1.62461 -0.4733  1.5424   8.2418 -1.1057
-Bram_2017  1.4554  2.87705  1.5518 -1.8042   1.0591  0.1707
-Gibs_2017  0.1662 -1.35181 -0.5819 -0.2376   2.3859 -0.6515
-Tong_2017 -0.1725  0.01209  1.3774  0.6231   0.1929 -0.1791
-Undi_2018  1.6087  0.60738  0.2046 -4.0259   5.3804 -0.7955
-Gree_2018  0.6233  0.03570  1.2768  3.1847  -3.4851  0.7816
-Sudb_2018  0.1662 -1.35181 -0.5819 -0.2376   2.3859 -0.6184
-Eddy_2018  0.3380  1.79012 -4.7511  2.8909 -15.2719  1.3740
-Yama_2018  0.6233  0.03570  1.2768  3.1847  -3.4851  0.6492
-Brit_2018  0.6233  0.03570  1.2768  3.1847  -3.4851  0.6538
-Fore_2018 -0.4441 -0.46965 -1.0933 -1.4381   3.9357 -0.7250
-
-
-##### Site constraints (linear combinations of constraining variables)
-RDA1      RDA2     RDA3     RDA4     RDA5     PC1
-Undi_2019 -0.15440 -0.980236  1.05502  0.06187  0.81348  0.2332
-Oste_2019 -0.65240 -0.502711 -0.31399 -0.91857 -0.43017 -0.4020
-Liza_2019 -0.60663 -0.360201 -0.56432 -0.71938 -0.27734 -0.4087
-Gree_2019 -0.07589 -0.221346  0.28750  0.90182  1.53504  0.8718
-Sudb_2019 -0.39854 -0.699674  0.70879 -0.08000  0.53660 -0.3974
-Gibs_2019  0.39137 -0.515082 -0.46748  0.78676  1.49289 -0.4034
-Hall_2019  0.09024 -0.552025 -0.51215  0.06099  0.74988 -0.3879
-Eddy_2019 -0.54017  0.093404 -1.38359 -0.55919 -0.14828 -0.4305
-Otte_2019 -1.17746 -0.121636  0.41122 -0.63512 -0.30723  1.7709
-Bram_2019 -1.92305  1.114787  0.09676  0.29435  0.10067 -1.1057
-Bram_2017  0.84566  2.016615  0.25065  0.74192  0.13744  0.1707
-Gibs_2017 -0.06859 -1.010686 -0.04125  2.00246 -1.79012 -0.6515
-Tong_2017  0.61284  0.007152  1.41165  0.35499 -1.03111 -0.1791
-Undi_2018  1.53256 -0.040616 -0.01808 -1.45078 -0.00480 -0.7955
-Gree_2018  0.91661 -0.692155 -1.29936  0.03734 -0.53106  0.7816
-Sudb_2018  0.78957 -0.093708  0.53703 -0.36235  0.07638 -0.6184
-Eddy_2018  0.28283  0.464307 -0.86092  0.08954 -0.31179  1.3740
-Yama_2018  0.01460  0.172435  1.32059 -0.90025 -0.55843  0.6492
-Brit_2018 -0.03337  0.691017 -0.56719  0.40853 -0.20228  0.6538
-Fore_2018  0.15425  1.230359 -0.05087 -0.11491  0.15022 -0.7250
-
-##### Biplot scores for constraining variables
-RDA1    RDA2    RDA3     RDA4     RDA5 PC1
-year        -0.58356 -0.3407 -0.2088 -0.35410  0.61189   0
-site         0.21859 -0.5260  0.6430 -0.50879 -0.05614   0
-temperature  0.72818 -0.3911 -0.3758 -0.40791 -0.09602   0
-salinity    -0.01864  0.4800 -0.1206 -0.20030 -0.84534   0
-chl          0.67015  0.5760  0.2697  0.04363 -0.38012   0
+#### Biplot scores for constraining variables
+year        -0.58356 -0.3407
+site         0.21859 -0.5260
+temperature  0.72818 -0.3911
+salinity    -0.01864  0.4800
+chl          0.67015  0.5760
 
 ## Permutation test for rda under reduced model
 Permutation: free
@@ -263,14 +210,12 @@ Number of permutations: 999
 
 Model: rda(formula = fin ~ year + site + temperature + salinity + chl, data = env3, scale = TRUE)
             Df Variance      F Pr(>F)  
-year         1  0.55169 2.2132  0.095 .
+year         1  0.55169 2.2132  0.095
 site         1  0.28619 1.1481  0.379  
 temperature  1  0.03646 0.1463  0.932  
 salinity     1  0.17792 0.7138  0.561  
 chl          1  0.45501 1.8253  0.202  
 Residual    10  2.49272                
-
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 vif.cca(m3) # anything above 10/20 should be avoided
        year        site temperature    salinity         chl 
