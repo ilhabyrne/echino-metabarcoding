@@ -1,0 +1,67 @@
+﻿otuID,NCBI,BOLDphylum,BOLDclass,BOLDgenus,BOLDspecies,similarity (%),manual blaster,comment to add in summary table
+uniq1263,Eleutherozoa,Echinodermata,Holothuroidea,Holothuria,Holothuria arenicola,99.68,Holothuria arenicula (99%),present on GBR
+uniq209,Echinaster,Echinodermata,Asteroidea,Echinaster,Echinaster sp. ,99.68,Echinaster sp. (my own sample),present on GBR
+uniq11,Eleutherozoa,Echinodermata,Asteroidea,Acanthaster,Acanthaster cf. solaris,100,"defintely not brevispinus. 100 % match to one of our own specimens and other pacific ones, OK to refer to as cf. solaris?",present on GBR
+uniq27709,Dactylosaster cylindricus,Echinodermata,Asteroidea,Dactylosaster,,98.71,,present on GBR
+uniq502,Fromia indica,Echinodermata,Asteroidea,Fromia,Fromia Indica,100,,present on GBR
+uniq5,Linckia,Echinodermata,Asteroidea,Linckia,,100,,present on GBR. Call Linkia sp. this region cannot distinguish multifora and laevigata
+uniq36,Linckia guildingi,Echinodermata,Asteroidea,Linckia,,100,,present on GBR
+uniq197,Linckia,Echinodermata,Asteroidea,Linckia,Linckia laevigata,100,,present on GBR. Call Linkia sp. this region cannot distinguish multifora and laevigata
+uniq10510,NA,,,,,,blast shows this an non echinoderm?,unaccepted name for Arbacia dufresnii. But this is a temperate species?
+uniq14416,NA,,,,,,blast shows this an non echinoderm?,
+uniq5072,Diadasia australis,Echinodermata,Echinoidea,Echinoneus,,99.68,Koehleraster abnormalis,present on GBR
+uniq9128,NA,Echinodermata,Echinoidea,Echinoneus,,99.03,Koehleraster abnormalis,present on GBR
+uniq18271,NA,Echinodermata,Echinoidea,Echinoneus,,99.03,Koehleraster abnormalis,present on GBR
+uniq27212,NA,Echinodermata,Echinoidea,Echinoneus,,99.03,Koehleraster abnormalis,present on GBR
+uniq5276,Eucidaris metularia,Echinodermata,Echinoidea,Eucidaris,Eucidaris metularia,100,,present on GBR
+uniq15790,Astropyga,Echinodermata,Echinoidea,Astropyga,,99.68,,"likely,  A radiata, only one known from GBR"
+uniq14599,NA,Echinodermata,Echinoidea,,,100,,at least 1 species present on GBR
+uniq821,NA,Echinodermata,Echinoidea,,,94.17,,at least 1 species present on GBR
+uniq2169,Mespilia globulus,Echinodermata,Echinoidea,Mespilia,Mespilia globulus,99.68,,
+uniq15695,Tripneustes gratilla,Echinodermata,Echinoidea,Tripneustes,Tripneustes sp.,99.68,"the same sequence, and this region gratilla and kerma are identical. Need to refer to as Tripneustes sp",
+uniq39002,Tripneustes,Echinodermata,Echinoidea,Tripneustes,Tripneustes sp.,99.68,,
+uniq12570,NA,Echinodermata,Holothuroidea,Synaptula,,98.71,,some synaptids on GBR
+uniq14,Holothuria pardalis,Echinodermata,,Holothuria,,100,,"not recorded on GBR, but nearby tropical areas"
+uniq1850,Eleutherozoa,Echinodermata,Holothuroidea,Holothuria,Holothuria arenicola,100,"also seems H arenicola, see above",
+uniq17071,NA,Echinodermata,Holothuroidea,Holothuria,Holothuria hilla,100,100% match to Holothuria hilla,present on GBR
+uniq32409,Holothuria,Echinodermata,Holothuroidea,Holothuria,,99.68,H. spinifera (recorded in WA) or H fuscocineria (on GBR),possibly same species?
+uniq46821,Eleutherozoa,Echinodermata,Holothuroidea,Holothuria,Holothuria arenicola,99.68,again arenicola,
+uniq4601,NA,,,,,,not echinoderm?,
+uniq9230,NA,,,,,,not echinoderm?,
+uniq4768,Labidodemas pertinax,Echinodermata,Holothuroidea,Labidodemas,,100,,"not recorded on GBR, but nearby tropical areas"
+uniq36867,Labidodemas pertinax,Echinodermata,Holothuroidea,Labidodemas,,100,,
+uniq285,Stichopus chloronotus,Echinodermata,Holothuroidea,Stichopus,,100,,present on GBR
+uniq2034,Thelenota ananas,Echinodermata,Holothuroidea,Thelenota,Thelenota ananas,100,,present an GBR
+uniq21254,NA,Echinodermata,Ophiuroidea,Ophiothrix,,99.68,"OK, no closer match in genbank",
+uniq6096,NA,Echinodermata,Ophiuroidea,,,,"OK, no closer match in genbank",
+uniq1847,Amphiodia,Echinodermata,Ophiuroidea,Amphiodia,,100,,"double ckeck, seems I find no species on the BR"
+uniq6239,Amphiura microsoma,Echinodermata,Ophiuroidea,,,100,,present an GBR
+uniq9178,Ophiocoma,Echinodermata,Ophiuroidea,Ophiocoma,,100,,genus present on GBR
+uniq15382,Ophiocoma erinaceus,Echinodermata,Ophiuroidea,Ophiocoma,Ophiocoma erinaceus,99.03,,present an GBR
+uniq18495,Ophiocoma erinaceus,Echinodermata,Ophiuroidea,Ophiocoma,Ophiocoma erinaceus,100,,present an GBR
+uniq928,Ophiomastix asperula,Echinodermata,Ophiuroidea,Ophiomastix,,99.03,,present an GBR
+uniq6091,NA,Echinodermata,Ophiuroidea,Ophiomastix,,99.35,,genus present on GBR
+uniq11160,Ophiomastix asperula,Echinodermata,Ophiuroidea,Ophiomastix,,98.38,,present an GBR
+uniq21372,Ophiomastix,Echinodermata,Ophiuroidea,Ophiomastix,,98.38,,genus present on GBR
+uniq1829,Ophionereis variegata,Echinodermata,Ophiuroidea,Ophionereis,,98.38,,present an GBR
+uniq7152,NA,Echinodermata,Ophiuroidea,Ophionereis,,100,,genus present on GBR
+uniq11815,Ophionereis variegata,Echinodermata,Ophiuroidea,Ophionereis,,99.03,,present on GBR
+uniq1437,NA,Echinodermata,Ophiuroidea,Macrophiothrix,,97.41,,genus present on GBR
+uniq4846,NA,Echinodermata,Ophiuroidea,Macrophiothrix,,97.41,,genus present on GBR
+uniq10926,Macrophiothrix lorioli,Echinodermata,Ophiuroidea,Macrophiothrix,Macrophiothrix lorioli,98.06,,present on GBR
+uniq13215,NA,Echinodermata,Ophiuroidea,Macrophiothrix,,,,genus present on GBR
+uniq16268,Macrophiothrix koehleri,Echinodermata,Ophiuroidea,Ophiothrix,,99.68,,present on GBR
+uniq6901,NA,Echinodermata,Ophiuroidea,,,,check by blasting,not present in GBR or nearby
+uniq1414,Ophiothrix armata,Echinodermata,Ophiuroidea,Ophiothrix,,99.03,,present on GBR
+uniq5487,Ophiothrix armata,Echinodermata,Ophiuroidea,Ophiothrix,,99.68,,present on GBR
+uniq6293,Ophiothrix armata,Echinodermata,Ophiuroidea,Ophiothrix,,99.38,,present on GBR
+uniq9384,NA,Echinodermata,Ophiuroidea,Ophiothrix,,99.03,,genus present on GBR
+uniq15275,Ophiothrix trilineata,Echinodermata,Ophiuroidea,Ophiothrix,Ophiothrix trilineata,99.68,,present on GBR
+uniq12366,Ophiothrix,Echinodermata,Ophiuroidea,Ophiothrix,,100,,genus present on GBR
+uniq13772,Ophiothrix armata,Echinodermata,Ophiuroidea,Ophiothrix,,98.71,,present on GBR
+uniq40126,Ophiothrix armata,Echinodermata,Ophiuroidea,Ophiothrix,,98.06,,present on GBR
+uniq7288,Ophiura,Echinodermata,Ophiuroidea,Ophiura,,99.35,try blasting?,genus present on GBR
+uniq14337,Ophiura,Echinodermata,Ophiuroidea,Ophiura,,98.71,try blasting?,genus present on GBR
+uniq1838,Eleutherozoa,Echinodermata,Holothuroidea,Holothuria,,100,"OK, no closer match in genbank",
+uniq4626,NA,Echinodermata,,,,,"OK, no closer match in genbank",
+uniq9430,Eleutherozoa,Echinodermata,Asteroidea,Asteropsis,Asteropsis carinifera,100,"OK, no closer match in genbank",

@@ -1,0 +1,234 @@
+library(tidyverse)
+library(vegan)
+library(ggplot2)
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y, use="complete.obs"))
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
+  
+  test <- cor.test(x,y)
+  Signif <- symnum(test$p.value,corr=FALSE, na=FALSE,
+                   cutpoints=c(0, 0.05, 0.1, 1),
+                   symbols = c("*", ".", ""))
+  text(0.5, 0.5, txt, cex = cex * r)
+  text(.8, .8, Signif, cex=cex, col=2)
+}
+
+### Load data and format
+df <- read.csv("moore_counts_echinoSp_otutax2.csv")
+
+df <- df %>%
+  tibble::column_to_rownames("species") 
+df <- lapply(df, as.numeric)
+df <- as.data.frame(df) 
+head(df)
+
+env <- read_csv("moore_env.csv")
+env <- env %>%
+  tibble::column_to_rownames("sample")
+
+env1 <- as.data.frame(env)
+head(env1)
+
+pa <- decostand(df, "pa") #standardize for presence absence
+decorana(pa) #SD should be < 3
+hel <- decostand(pa, "hellinger") #Hellinger transformation if SD is too high (Legendre and Gallagher 2001)
+decorana(hel)
+
+### Additional filtering - yields better results
+sum <- apply(pa, 2, sum) #calculate sum per species
+sort(sum)
+fin <- pa[, ! sum<2] #remove species that occur in fewer than 2 samples
+fin <- fin[rowSums(fin[, -1])>0,] #remove sites with 0 species
+sort(apply(fin, 2, max)) #variability in max "abundance"
+sort(apply(fin, 2, sd)) #variation is not high
+decorana(fin) #SD should be < 3
+
+### Check the environmental data
+pairs(env1, lower.panel=panel.smooth, upper.panel=panel.cor) #check relationship between variables 
+
+library(faraway)
+sort(vif(env1)) #VIFs > 10 should be avoided (Borcard et al. 2011)
+
+## RDA analyses
+
+### Unconstrained (PCA)
+m1 <- rda(fin ~ 1, data=env1, scale=TRUE) # RDA analysis, scale=TRUE if not hellinger transformed
+summary(m1) # % explained by variables in constrained 
+plot(m1)
+
+### Reduced model
+m2 <- rda(fin ~ year.dummy + season.dummy, data=env1, scale=TRUE) # RDA analysis, scale=TRUE if not hellinger transformed
+summary(m2) # % explained by variables in constrained 
+plot(m2)
+
+m2a <- rda(hel ~ year.dummy + season.dummy, data=env1, scale=TRUE) # RDA analysis, scale=TRUE if not hellinger transformed
+summary(m2a) # % explained by variables in constrained 
+plot(m2a)
+
+coef(m2) # extract canonical coefficients 
+set.seed(111)
+anova.cca(m2, STEP=1000) # checks if model is statistically significant 
+anova.cca(m2, by="axis", step=10000) # statistical significance of each axis
+anova.cca(m2, by="term", step=10000) # statistical significance of each term
+vif.cca(m2) # anything above 10 should be avoided
+RsquareAdj(m2)$adj.r.squared
+
+coef(m2a) # extract canonical coefficients 
+set.seed(111)
+anova.cca(m2a, STEP=1000) # checks if model is statistically significant 
+anova.cca(m2a, by="axis", step=10000) # statistical significance of each axis
+anova.cca(m2a, by="term", step=10000) # statistical significance of each term
+vif.cca(m2a) # anything above 10 should be avoided
+RsquareAdj(m2a)$adj.r.squared
+
+### Reduced model
+m3 <- rda(fin ~ season.dummy, data=env1, scale=TRUE) # RDA analysis, scale=TRUE if not hellinger transformed
+summary(m3) # % explained by variables in constrained 
+plot(m3)
+
+coef(m3) # extract canonical coefficients 
+set.seed(111)
+anova.cca(m3, STEP=1000) # checks if model is statistically significant 
+anova.cca(m3, by="axis", step=10000) # statistical significance of each axis
+anova.cca(m3, by="term", step=10000) # statistical significance of each term
+vif.cca(m3) # anything above 10 should be avoided
+RsquareAdj(m3)$adj.r.squared
+
+## Plot results
+par(mfrow=c(1,1))
+plot(m2, type="n", scaling=2, xlim=c(-2,2), ylim=c(-2,2)) 
+text(m2, display="bp", col="black", labels = c("season","year"), cex=2)
+text(m2, display="species", col="blue", cex=1, font=3)
+
+plot(m2, scaling=2) #angle depicts the relationship between variables and sites
+
+par(mfrow=c(1,2))
+ordiplot(m2,scaling=1, type="text")
+ordiplot(m2,scaling=2, type="text")
+
+par(mfrow=c(1,1))
+plot(m2a, type="n", scaling=2, xlim=c(-2,2), ylim=c(-2,2)) 
+text(m2a, display="bp", col="black", labels = c("season","year"), cex=2)
+text(m2a, display="species", col="blue", cex=1, font=3)
+
+plot(m2, scaling=2)
+
+
+### Custom triplot
+#extract % explained by the first 2 axes
+perc <- round(100*(summary(m2)$cont$importance[2, 1:2]), 2)
+
+#extract scores - these are coordinates in the RDA space
+sc_si <- scores(m2, display="sites", choices=c(1,2), scaling=1)
+sc_sp <- scores(m2, display="species", choices=c(1,2), scaling=1)
+sc_bp <- scores(m2, display="bp", choices=c(1, 2), scaling=1)
+
+#set up a blank plot with scaling, axes, and labels
+plot(m2,
+     scaling = 1, # set scaling type 
+     type = "none", # this excludes the plotting of any points from the results
+     frame = FALSE,
+     # set axis limits
+     xlim = c(-0.5,0.5), 
+     ylim = c(-1,1),
+     # label the plot (title, and axes)
+     main = "Triplot RDA - scaling 1",
+     xlab = paste0("RDA1 (", perc[1], "%)"), 
+     ylab = paste0("RDA2 (", perc[2], "%)") 
+)
+
+#add points for site scores
+points(sc_si, 
+       pch = 21, # set shape (here, circle with a fill colour)
+       col = "gold", # outline colour
+       bg = "gold", # fill colour
+       cex = 1
+       ) # size
+
+#add points for species scores
+points(sc_sp, 
+       pch = 22, # set shape (here, square with a fill colour)
+       bg = "steelblue",
+       col = "steelblue", 
+       cex = 1)
+
+#add text labels for species abbreviations
+text(sc_sp + c(0.03, 0.09), # adjust text coordinates to avoid overlap with points 
+     labels = rownames(sc_sp), 
+     x = sc_sp[,1] -0.7, #adjust text coordinate to avoid overlap with arrow tip
+     y = sc_sp[,2] +0.085,
+     col = "grey40", 
+     font = 3, # bold
+     cex = 0.6)
+
+#add arrows for effects of the expanatory variables
+arrows(0,0, # start them from (0,0)
+       sc_bp[,1], sc_bp[,2], # end them at the score value
+       col = "red", 
+       lwd = 1)
+
+#add text labels for arrows
+text(x = sc_bp[,1] +0.3, #adjust text coordinate to avoid overlap with arrow tip
+     y = sc_bp[,2] +0.00, 
+     labels = c("season","year"), 
+     col = "red", 
+     cex = 1, 
+     font = 2)
+
+#rerun with scaling 2
+plot(m2,
+     scaling = 2, # set scaling type 
+     type = "none", # this excludes the plotting of any points from the results
+     frame = FALSE,
+     # set axis limits
+     xlim = c(-0.5,0.5), 
+     ylim = c(-1,1),
+     # label the plot (title, and axes)
+     main = "Triplot RDA - scaling 2",
+     xlab = paste0("RDA1 (", perc[1], "%)"), 
+     ylab = paste0("RDA2 (", perc[2], "%)") 
+)
+
+#add points for site scores
+points(sc_si, 
+       pch = 21, # set shape (here, circle with a fill colour)
+       col = "gold", # outline colour
+       bg = "gold", # fill colour
+       cex = 1
+) # size
+
+#add points for species scores
+points(sc_sp, 
+       pch = 22, # set shape (here, square with a fill colour)
+       bg = "steelblue",
+       col = "steelblue", 
+       cex = 1)
+
+#add text labels for species abbreviations
+text(sc_sp + c(0.03, 0.09), # adjust text coordinates to avoid overlap with points 
+     labels = rownames(sc_sp), 
+     x = sc_sp[,1] -0.7, #adjust text coordinate to avoid overlap with arrow tip
+     y = sc_sp[,2] +0.085,
+     col = "grey40", 
+     font = 3, # bold
+     cex = 0.6)
+
+#add arrows for effects of the expanatory variables
+arrows(0,0, # start them from (0,0)
+       sc_bp[,1], sc_bp[,2], # end them at the score value
+       col = "red", 
+       lwd = 1)
+
+#add text labels for arrows
+text(x = sc_bp[,1] +0.3, #adjust text coordinate to avoid overlap with arrow tip
+     y = sc_bp[,2] +0.00, 
+     labels = c("season","year"), 
+     col = "red", 
+     cex = 1, 
+     font = 2)
