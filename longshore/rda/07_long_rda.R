@@ -94,15 +94,20 @@ loadings <- data.frame(
 m2.plot <- ggplot() +
   geom_point(data = site, aes(x = RDA1, y = RDA2), color = "grey50") +
   geom_text_repel(data = spp, aes(x = RDA1, y = RDA2, label = rownames(spp)),
-                  size = 3, box.padding = 0.1, point.padding = 4,
+                  size = 3, box.padding = 0.5, point.padding = 0,
                   segment.color = 'grey50', color = "blue", segment.size = 0,
                   max.iter = 5000) +
   geom_segment(data = loadings, aes(x = 0, y = 0, xend = RDA1, yend = RDA2), 
                arrow = arrow(type = "closed", length = unit(0.1, "inches")), 
-               color = "grey", linewidth = 0.5) +
-  geom_text(data = loadings, aes(x = RDA1, y = RDA2, label = Variables), hjust = -0.3, vjust = 1) +
-  labs(x = "RDA1", y = "RDA2") +
+               color = "grey", linewidth = 0.55) +
+  geom_text(data = loadings, aes(x = RDA1, y = RDA2, label = Variables),
+            nudge_x = 0.07, nudge_y = 0.1, hjust = 0, vjust = 0, color = "black") +
+  labs(x = "RDA1 (13.8%)", y = "RDA2 (8.0%)") +
   theme_bw() +
+  theme(axis.title = element_text(size = 12, face = "bold"),
+        plot.tag = element_text(size = 16, face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
   coord_fixed()
 
 m2.plot
@@ -142,9 +147,13 @@ m3.plot <- ggplot() +
   geom_segment(data = loadings1, aes(x = 0, y = 0, xend = RDA1, yend = RDA2), 
                arrow = arrow(type = "closed", length = unit(0.1, "inches")), 
                color = "grey", linewidth = 0.5) +
-  geom_text(data = loadings1, aes(x = RDA1, y = RDA2, label = Variables), hjust = -0.3, vjust = 1.2) +
-  labs(x = "RDA1", y = "RDA2") +
+  geom_text(data = loadings1, aes(x = RDA1, y = RDA2, label = Variables), hjust = -0.1, vjust = 1.2) +
+  labs(x = "RDA1 (22.7%)", y = "RDA2(12.5%)") +
   theme_bw() +
+  theme(axis.title = element_text(size = 12, face = "bold"),
+        plot.tag = element_text(size = 16, face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
   coord_fixed()
 
 m3.plot
@@ -154,11 +163,9 @@ ggsave("long-rda-subset.png", plot = m3.plot, width = 8, height = 8, dpi = 300)
 ### Plot side by side
 library(patchwork)
 
-combined <- (m2.plot / m3.plot) + 
-  plot_annotation(tag_levels = 'a') & 
-  theme(
-    plot.tag = element_text(face = 'bold', size = 16) # adjust top, right, bottom, left margins
-  )
+combined <- m2.plot + m3.plot + plot_layout(ncol = 2) +
+  plot_annotation(tag_levels = 'a',
+                  tag_prefix = "") 
 
 combined # view multi-panel figure
 
