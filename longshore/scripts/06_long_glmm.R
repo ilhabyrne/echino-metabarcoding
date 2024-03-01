@@ -10,7 +10,7 @@ library(tidyverse)
 library(vegan)
 
 ## Merge taxonomy and otumat
-setwd("~/Desktop/Undergraduate/manuscript/Data_2023/longshore/glmm")
+setwd("/Users/ilhabyrne/Documents/GitHub/echino-metabarcoding/longshore/glmm")
 
 tax <- read.csv("06a_long_counts_percentThresh_phyloseq.csv")
 otu <- read.csv("03_long_subsetTaxa_phyloseq.csv")
@@ -42,7 +42,7 @@ write_csv(df_t, "long_countsPhyla_otutax2.csv")
 ## GLMM models
 
 ### Load data
-rich <- read_csv("longshore_metadata.csv")
+rich <- read.csv("longshore_metadata.csv")
 rich$year <- as.factor(rich$year)
 rich$site <- as.factor(rich$site)
 
@@ -58,7 +58,7 @@ summary(m3) #AIC:245.3
 
 ### Years means test
 testsm2 <- glht(m2, linfct=mcp(year="Tukey"))
-summary(testsm1)
+summary(testsm2)
 
 meansm2 <- emmeans(m2, specs = "year")
 pairs(meansm2)
