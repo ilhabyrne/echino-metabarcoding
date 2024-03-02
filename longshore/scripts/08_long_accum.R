@@ -61,7 +61,7 @@ f
 
 ### FORMAT DATA ###
 
-## Read data (plot a)
+## Read data (plot d)
 long <- read_csv("07c_long_reads_subsetTaxa.csv")
 
 # Use dplyr to aggregate and sort
@@ -74,11 +74,20 @@ otu_reads <- long %>%
 otu_reads <- otu_reads %>%
   mutate(CumulativeOTUs = cumsum(TotalReads))
 
-## Custom plot data (plot b)
+## Custom plot data (plot e)
 reads <- read.csv("05_long_reads_sampleMerge_phyloseq.csv")
-reads <- reads %>%
+taxa <- read.csv("03_long_subsetTaxa_phyloseq.csv")
+all <- right_join(reads, taxa, by ='otuID')
+all <- all[ ,-(47:52)]
+all <- all %>%
   tibble::column_to_rownames("otuID")
-readSums <- colSums(reads)
+readSums <- colSums(all)
+
+tab <- right_join(counts, taxa, by ='otuID')
+tab <- tab[ ,-c(47:52)]
+tab <- tab %>%
+  tibble::column_to_rownames("otuID")
+countSums <- colSums(tab)
 
 df <- data.frame(TotalReads = unlist(readSums), TotalTaxa = unlist(countSums))
 
@@ -92,7 +101,7 @@ d <- ggplot(otu_reads, aes(x = CumulativeOTUs, y = seq_along(ID))) +
   labs(x = "Cumulative Number of Reads", y = "Cumulative Number of OTUs") +
   theme_classic() +
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 375, 25), limits = c(0, 375)) +
-  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 201000, 50000), limits = c(0,208000)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 201000, 40000), limits = c(0,208000)) +
   theme(axis.title = element_text(size = 12, face = "bold"),
         plot.tag = element_text(size = 16, face = "bold"))
 d
@@ -107,7 +116,7 @@ e <- ggplot(df, aes(x = TotalReads, y = TotalTaxa)) +
   ylab("Number of OTUs") +
   theme_classic() +
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 50, 5), limits = c(0,50)) +
-  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 52500, 6500), limits = c(0,53500)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 30000, 7500), limits = c(0,33000)) +
   theme(axis.title = element_text(size = 12, face = "bold"),
         plot.tag = element_text(size = 16, face = "bold"))
 e
@@ -121,3 +130,12 @@ lat <- d + e + f + plot_layout(ncol = 3) +
 lat # view multi-panel figure
 
 ggsave("long-curves.png", plot = lat, width = 12, height = 4, dpi = 300)
+
+
+full <- a + b + c+ d + e + f + plot_layout(ncol = 3, nrow = 2) +
+  plot_annotation(tag_levels = 'a',
+                  tag_prefix = "") 
+
+full # view multi-panel figure
+
+ggsave("Fig.png", plot = full, width = 12, height = 8, dpi = 300)
