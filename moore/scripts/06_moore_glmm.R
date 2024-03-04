@@ -54,6 +54,7 @@ write_csv(df1, "moore_glmm_250823.csv")
 ## Load data
 rich <- read_csv("moore_glmm_250823.csv")
 rich$season <- as.factor(rich$season)
+rich$year <- as.factor(rich$year)
 
 ## Run models and assess AIC value
 m1 <- glmmTMB(echino.rich ~ season, family="poisson", data=rich)
@@ -77,7 +78,7 @@ pairs(meansm1)
 
 plot(meansm1, horizontal = FALSE)
 
-### Check the dispersion and homogeneity of best models 
+### Check the dispersion and homogeneity of model 
 res1 <- simulateResiduals(m1)
 plot(res1)
 
@@ -96,14 +97,22 @@ pairs(meansm1)
 
 plot(meansm1, horizontal = FALSE)
 
-### Check the dispersion and homogeneity of best models 
+### Check the dispersion and homogeneity of best model
 res1 <- simulateResiduals(m1)
 plot(res1)
 
 ## Model 2
 m2 <- glm(echino.rich ~ season + year, data=rich, family="poisson")
-summary(m2) #AIC:159.38.14
+summary(m2) #AIC:149.08
+
+### Check the dispersion and homogeneity of model
+res2 <- simulateResiduals(m2)
+plot(res2)
 
 ### Seasons means test
-testsm2 <- glht(m2, linfct=mcp(season="Tukey"))
-summary(testsm2)
+testsm2a <- glht(m2, linfct=mcp(season="Tukey"))
+summary(testsm2a)
+
+### Year means test
+testsm2b <- glht(m2, linfct=mcp(year="Tukey"))
+summary(testsm2b)
