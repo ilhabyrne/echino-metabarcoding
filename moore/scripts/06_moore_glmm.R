@@ -70,16 +70,7 @@ m1b <- glmmTMB(echino.rich ~ year + (1 | sample), family="poisson", data=rich)
 summary(m1b) #AIC:153.4
 
 m2a <- glmmTMB(echino.rich ~ season + year + (1 | sample), family="poisson", data=rich)
-summary(m2a) #AIC:149.8; year not significant 
-
-### Seasons means test
-testsm1a <- glht(m1a, linfct=mcp(season="Tukey"))
-summary(testsm1a)
-
-testsm1b <- glht(m1b, linfct=mcp(year="Tukey"))
-summary(testsm1b)
-
-plot(meansm1, horizontal = FALSE)
+summary(m2a) #AIC:149.8
 
 ### Check the dispersion and homogeneity of model 
 res1 <- simulateResiduals(m1)
