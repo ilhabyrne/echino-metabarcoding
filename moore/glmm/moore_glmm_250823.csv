@@ -1,4 +1,4 @@
-phylum,tow,date,site,year,month,season,Annelida,Arthropoda,Brachiopoda,Chaetognatha,Chordata,Cnidaria,Ctenophora,Entoprocta,Hemichordata,Mollusca,Nemertea,Phoronida,Platyhelminthes,Porifera,Sipuncula,total.rich,echino.rich
+sample,tow,date,site,year,month,season,Annelida,Arthropoda,Brachiopoda,Chaetognatha,Chordata,Cnidaria,Ctenophora,Entoprocta,Hemichordata,Mollusca,Nemertea,Phoronida,Platyhelminthes,Porifera,Sipuncula,total.rich,echino.rich
 sample,100613,Nov_2019,Moore Reef,2019,November,Spring,5,42,0,3,6,3,0,0,0,33,0,0,0,0,0,92,5
 sample1,100614,Nov_2019,Moore Reef,2019,November,Spring,5,63,0,4,13,7,0,0,0,24,2,0,0,0,0,118,8
 sample2,100991,Jan_2020,Moore Reef,2020,January,Summer,4,56,0,23,5,14,0,0,0,80,0,0,0,1,0,183,8

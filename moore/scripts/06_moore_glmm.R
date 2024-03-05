@@ -49,9 +49,12 @@ df2 <- t(df1)
 
 write_csv(df1, "moore_glmm_250823.csv")
 
+### ~~~~~~~~~~ ECHINODERMS ONLY ~~~~~~~~~~ ###
+
 # GLMM models
 
 ## Load data
+setwd("~/Documents/GitHub/echino-metabarcoding/moore/glmm")
 rich <- read_csv("moore_glmm_250823.csv")
 rich$season <- as.factor(rich$season)
 rich$year <- as.factor(rich$year)
@@ -60,27 +63,36 @@ rich$year <- as.factor(rich$year)
 m1 <- glmmTMB(echino.rich ~ season, family="poisson", data=rich)
 summary(m1) #AIC:168.1
 
-m2 <- glmmTMB(echino.rich ~ season + year, family="poisson", data=rich)
-summary(m2) #AIC:159.4; year not significant 
+m1a <- glmmTMB(echino.rich ~ season + (1 | sample), family="poisson", data=rich)
+summary(m1a) #AIC:157.4
 
-m3 <- glmmTMB(total.rich ~ season, family="poisson", data=rich)
-summary(m3) #AIC:508.2
+m1b <- glmmTMB(echino.rich ~ year + (1 | sample), family="poisson", data=rich)
+summary(m1b) #AIC:153.4
 
-m4 <- glmmTMB(total.rich ~ season + year, family="poisson", data=rich)
-summary(m4) #AIC:501.5
+m2a <- glmmTMB(echino.rich ~ season + year + (1 | sample), family="poisson", data=rich)
+summary(m2a) #AIC:149.8; year not significant 
 
 ### Seasons means test
-testsm1 <- glht(m1, linfct=mcp(season="Tukey"))
-summary(testsm1)
+testsm1a <- glht(m1a, linfct=mcp(season="Tukey"))
+summary(testsm1a)
 
-meansm1 <- emmeans(m1, specs = "season")
-pairs(meansm1)
+testsm1b <- glht(m1b, linfct=mcp(year="Tukey"))
+summary(testsm1b)
 
 plot(meansm1, horizontal = FALSE)
 
 ### Check the dispersion and homogeneity of model 
 res1 <- simulateResiduals(m1)
-plot(res1)
+plot(res1) # bad
+
+res1a <- simulateResiduals(m1a)
+plot(res1a) # good
+
+res2 <- simulateResiduals(m2)
+plot(res2) # bad
+
+res2a <- simulateResiduals(m2a)
+plot(res2a) # good
 
 # GLM models
 
@@ -99,7 +111,7 @@ plot(meansm1, horizontal = FALSE)
 
 ### Check the dispersion and homogeneity of best model
 res1 <- simulateResiduals(m1)
-plot(res1)
+plot(res1) # significant dispersion
 
 ## Model 2
 m2 <- glm(echino.rich ~ season + year, data=rich, family="poisson")
@@ -107,12 +119,51 @@ summary(m2) #AIC:149.08
 
 ### Check the dispersion and homogeneity of model
 res2 <- simulateResiduals(m2)
-plot(res2)
+plot(res2) # significant dispersion
+
+### ~~~~~~~~~~ ALL TAXA ~~~~~~~~~~ ###
+
+## Run models and assess AIC value
+m1 <- glmmTMB(total.rich ~ season, family="poisson", data=rich)
+summary(m1) #AIC:508.2
+
+m2 <- glmmTMB(total.rich ~ season + year, family="poisson", data=rich)
+summary(m2) #AIC:458; year not significant 
+
+m3 <- glmmTMB(total.rich ~ season + (1 | sample), family="poisson", data=rich)
+summary(m3) #AIC:309.7
+
+m4 <- glmmTMB(total.rich ~ year + (1 | sample), family="poisson", data=rich)
+summary(m4) #AIC:313.9
+
+m5 <- glmmTMB(total.rich ~ season + year + (1 | sample), family="poisson", data=rich)
+  # rank-deficient conditional model
+summary(m5) #AIC:311.2
+
+### Check the dispersion and homogeneity of models
+res3 <- simulateResiduals(m3)
+plot(res3) # good
+
+res4 <- simulateResiduals(m4)
+plot(res4) # good
+
+res5 <- simulateResiduals(m5)
+plot(res5) # good
 
 ### Seasons means test
-testsm2a <- glht(m2, linfct=mcp(season="Tukey"))
-summary(testsm2a)
+testsm3 <- glht(m3, linfct=mcp(season="Tukey"))
+summary(testsm3)
 
-### Year means test
-testsm2b <- glht(m2, linfct=mcp(year="Tukey"))
-summary(testsm2b)
+testsm4 <- glht(m4, linfct=mcp(year="Tukey"))
+summary(testsm4)
+
+### ~~~~~~~~~~ TAXA relationships ~~~~~~~~~~ ###
+
+m7 <- glmmTMB(echino.rich ~ Cnidaria + (1 | sample), family="poisson", data=rich)
+summary(m7)
+
+m7a <- lm(echino.rich ~ Cnidaria, data=rich)
+summary(m7a)
+
+res7 <- simulateResiduals(m7)
+plot(res7) # good
