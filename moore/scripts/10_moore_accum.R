@@ -110,6 +110,8 @@ countSums <- colSums(counts)
 
 df <- data.frame(TotalReads = unlist(readSums), TotalTaxa = unlist(countSums))
 
+write.csv(df, "moore_totalReads_totalOTUs.csv")
+
 ### GGPLOT2 ###
 
 ## Cumulative read plot
@@ -132,10 +134,10 @@ b <- ggplot(df, aes(x = TotalReads, y = TotalTaxa)) +
               color="red", size = 0.5, fill = "lightgrey") + 
   geom_point(size=0.5) +
   xlab("Number of Reads (per sample)") +
-  ylab("Number of OTUs") +
+  ylab("Number of OTUs (per sample)") +
   theme_classic() +
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 275, 25), limits = c(0,275)) +
-  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 46000, 10000), limits = c(0,46000)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 47000, 7500), limits = c(0,47000)) +
   theme(axis.title = element_text(size = 12, face = "bold"),
         plot.tag = element_text(size = 16, face = "bold"))
 b

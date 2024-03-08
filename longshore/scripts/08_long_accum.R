@@ -25,7 +25,7 @@ write.csv(tab2, "07_long_counts_subsetTaxa.csv")
 ### LOAD FORMATTED DATA ###
 
 dat <- read.csv("07_long_counts_subsetTaxa.csv")
-dat1 <- read.csv("../counts/07b_long_counts_subsetTaxa_specAccum.csv")
+dat1 <- read.csv("07b_long_counts_subsetTaxa_specAccum.csv")
 
 ### SPECIES ACCUMULATION ###
 # If you suspect your sampling is incomplete and you want to estimate total 
@@ -91,6 +91,8 @@ countSums <- colSums(tab)
 
 df <- data.frame(TotalReads = unlist(readSums), TotalTaxa = unlist(countSums))
 
+write.csv(df, "long_totalRead_totalOTUs.csv")
+
 ### GGPLOT2 ###
 
 ## Cumulative read plot
@@ -113,10 +115,10 @@ e <- ggplot(df, aes(x = TotalReads, y = TotalTaxa)) +
               color="red", size = 0.5, fill = "lightgrey") + 
   geom_point(size=0.5) +
   xlab("Number of Reads (per sample)") +
-  ylab("Number of OTUs") +
+  ylab("Number of OTUs (per sample)") +
   theme_classic() +
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 50, 5), limits = c(0,50)) +
-  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 30000, 7500), limits = c(0,33000)) +
+  scale_x_continuous(expand = c(0, 0), breaks = seq(0, 30000, 5000), limits = c(0,31000)) +
   theme(axis.title = element_text(size = 12, face = "bold"),
         plot.tag = element_text(size = 16, face = "bold"))
 e
@@ -138,4 +140,4 @@ full <- a + b + c+ d + e + f + plot_layout(ncol = 3, nrow = 2) +
 
 full # view multi-panel figure
 
-ggsave("Fig.png", plot = full, width = 12, height = 8, dpi = 300)
+ggsave("Fig2.png", plot = full, width = 12, height = 8, dpi = 300)
