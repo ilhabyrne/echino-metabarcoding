@@ -11,12 +11,12 @@ The main aim of this project was to use metabarcoding as a tool to identify the 
 Below you will find my ramblings on how I tackled the post-bioinfromatics processing of this dataset. This is just an overview of what I did - refer to my scripts to see exactly what I did. 
 
 Main steps
-- [x]  Merge MIDORI sintax & echino NCBI results
+- [x]  Merge MIDORI sintax & echino NCBI results 
 - [x]  Remove singletons
 - [x]  Format for use with phyloseq
 - [x]  Remove anything without hits (but keep both file versions)
 - [x]  Merge PCR replicates & save as separate files
-- [x]  Convert to count data & save as separate file
+- [x]  Convert to count data & save as separate file 
 
 ### Data wrangling in R
 
